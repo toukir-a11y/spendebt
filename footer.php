@@ -1,5 +1,6 @@
 <?php
 $footer= get_field('footer','option');
+$social= get_field('social_media','option');
 ?>
 
 <footer class="footer">
@@ -38,11 +39,24 @@ $footer= get_field('footer','option');
 						</div>
 
 						<ul class="social-media list-inline">
-							<li><a href="#" class="icon-facebook" target="_blank"></a></li>
-							<li><a href="#" class="icon-instagram" target="_blank"></a></li>
-							<li><a href="#" class="icon-linkedin" target="_blank"></a></li>
-							<li><a href="#" class="icon-twitter" target="_blank"></a></li>
+
+						<?php 
+
+						foreach($social as $nsocial){
+							$name= $nsocial['select_social_media'];
+						
+						?>
+
+							<li><a href="<?php echo $nsocial[$name];?>" class="icon-<?php echo $name;?>" target="_blank"></a></li>
+						<?php 
+						}
+						?>
 						</ul>
+
+						<?php 
+						
+
+						?>
 
 						<div class="copyright d-flex align-items-center justify-content-center">
 							<p><?php echo $footer['title_two'];?></p>

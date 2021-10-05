@@ -35,9 +35,9 @@
 				  <?php
 				wp_nav_menu(array(
 					'theme_location'     => 'top_menu',
-					'depth'              => 1,
+					'depth'              => 2,
 					'container'          => false,
-					'menu_class'         => 'nav navbar-nav',
+					'menu_class'         => 'navbar-nav',
 					'menu_id'            => '',
 					'fallback_cb'        => 'wp_bootstrap_navwalker::fallback',
 					'walker'             => new wp_bootstrap_navwalker()
@@ -74,10 +74,10 @@
 
 						  <?php
 				wp_nav_menu(array(
-					'theme_location'     => 'footer_menu',
-					'depth'              => 1,
+					'theme_location'     => 'top_menu',
+					'depth'              => 2,
 					'container'          => false,
-					'menu_class'         => 'nav navbar-nav',
+					'menu_class'         => 'navbar-nav ml-auto',
 					'menu_id'            => '',
 					'fallback_cb'        => 'wp_bootstrap_navwalker::fallback',
 					'walker'             => new wp_bootstrap_navwalker()

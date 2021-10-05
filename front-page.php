@@ -1,6 +1,18 @@
 <?php get_header();
-$banner= get_field('banner');
-$work= get_field('how_it_work');
+$banner = get_field('banner');
+$work = get_field('how_it_work');
+
+// for group field within repeater field
+$group = get_field('how_it_work');
+$repeaters = $group['register'];
+
+$price = get_field('price_plan');
+$group = get_field('price_plan');
+$frepeaters = $group['features_list'];
+
+$singup = get_field('sing_up');
+$testimonial = get_field('testimonial');
+var_dump($testimonial);
 ?>
 		<section class="banner">
 			<div class="container position-relative">
@@ -49,24 +61,37 @@ $work= get_field('how_it_work');
 						</div>
 					</div>
 
+													
 					<div class="row eq-height">
+						
+					<?php
+
+						$i=1;
+						foreach($repeaters as $repeater):
+						?>
+
 						<div class="col-md-4 col-sm-12">
 							<div class="how-works-item text-center">
 								<div class="icon-wrap">
 									<div class="icon">
-										<i class="icon-edit"></i>
+							
+										<i class="icon-<?php echo $repeater['select'];?>"></i>
+
 									</div>
 								</div>
-
 								<div class="text">
-									<h4 class="title">Register</h4>
-									<span class="step">Step 1</span>
-									<p>Subscribe and create a user profile</p>
+									<h4 class="title"><?php echo $repeater['heading_two'];?></h4>															
+									<p><?php echo $repeater['title_two'];?></p>
 								</div>
 							</div>
 						</div><!-- /how-works-item -->
 
-						<div class="col-md-4 col-sm-12">
+						<?php
+							endforeach;						
+						?>
+
+
+						<!-- <div class="col-md-4 col-sm-12">
 							<div class="how-works-item text-center">
 								<div class="icon-wrap">
 									<div class="icon">
@@ -80,9 +105,9 @@ $work= get_field('how_it_work');
 									<p>Link your bank accounts and define which debts to pay off</p>
 								</div>
 							</div>
-						</div><!-- /how-works-item -->
+						</div>/how-works-item -->
 
-						<div class="col-md-4 col-sm-12">
+						<!-- <div class="col-md-4 col-sm-12">
 							<div class="how-works-item text-center">
 								<div class="icon-wrap">
 									<div class="icon">
@@ -96,10 +121,11 @@ $work= get_field('how_it_work');
 									<p>Specify micro transaction size (anything above $.50)</p>
 								</div>
 							</div>
-						</div><!-- /how-works-item -->
+						</div>/how-works-item -->
 					</div>
 				</div>
 			</section><!-- /home-how-works -->
+
 
 			<section class="pricing">
 				<div class="container">
@@ -107,20 +133,15 @@ $work= get_field('how_it_work');
 						<div class="col-12">
 							<div class="content">
 								<div class="entry-title text-center">
-									<h2 class="title">Join Our Unlimited Plan</h2>
-									<h4 class="font-weight-normal">Get 1 month <b>Free</b>, then:</h4>
+								<?php echo $price['heading'];?>
 								</div>
 
-								<span class="price">$<span class="counter">4.99</span></span>
+								<?php echo $price['price'];?>
 
 								<ul class="features list-unstyled">
-									<li>Unlimited Transactions</li>
-									<li>Access Account on Any Device</li>
-									<li>Free 30-Day Trial</li>
-									<li>Paid Automatically from Linked Bank Account</li>
-									<li>No Hidden Fees</li>
-									<li>Guaranteed Secure and Private Bank Information</li>
-									<li>Cancel Anytime</li>
+									<?php foreach ($frepeaters as $nfrepeater):?>
+									<li><?php echo $nfrepeater['features'];?></li>
+									<?php endforeach; ?>
 								</ul>
 							</div>
 						</div>
@@ -209,26 +230,40 @@ $work= get_field('how_it_work');
 					<div class="row">
 						<div class="col-12">
 							<div class="entry-title">
-								<h2 class="title">It's Time To Get Serious About Paying Off Debt.</h2>
-								<a href="#" class="btn">Sign Up</a>
+								<h2 class="title"><?php echo $singup['title'];?></h2>
+								<a href="<?php echo $singup['link'];?>" class="btn"><?php echo $singup['link_text'];?></a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="media">
-					<img src="<?php echo get_theme_file_uri();?>/assets/images/man-usd.svg" alt="">
+					<img src="<?php echo $singup['singup_image'];?>" alt="">
 				</div>
 			</section><!-- /home-about -->
+
+		
 
 			<section class="testimonials">
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
 							<div class="entry-title text-center">
-								<h2 class="title">Real People. Real Comments.</h2>
+								<h2 class="title"><?php echo $testimonial_title;?></h2>
 							</div>
 						</div>
 					</div>
+					<?php				
+					if( have_rows('testimonial') ):
+
+while( have_rows('testimonial') ) : the_row();
+
+	$testimonial_title = get_sub_field('testimonial_title');
+	$quate_text = get_sub_field('quate_text');
+	$video_link = get_sub_field('video_link');
+	$video_image = get_sub_field('video_image');
+	$name = get_sub_field('name');
+	$location = get_sub_field('location');					
+?>
 
 					<div class="row">
 						<div class="col-12">
@@ -241,49 +276,40 @@ $work= get_field('how_it_work');
 										</div>
 
 										<div class="quote">
-											<p>“First I would like to thank you for launching this amazing venture. I have successfully paid off my first student loan through Great Lakes and I would not be able to do It without you”</p>
+											<?php echo $quate_text;?>
 										</div>
 
-										<a href="https://www.youtube.com/watch?v=QANXeDqOo5U" class="popup-video" data-effect="mfp-move-from-top vertical-middle">
-											<img src="<?php echo get_theme_file_uri();?>/assets/images/client.jpg" class="img-fluid" alt="">
+										<a href="<?php echo $video_link;?>" class="popup-video" data-effect="mfp-move-from-top vertical-middle">
+											<img src="<?php echo $video_image;?>" class="img-fluid" alt="">
 										</a>
 
 										<div class="quote-bottom">
-											<h4 class="name">Jessica Rogers</h4>
-											<span class="location text-uppercase">Houston, Tx</span>
+											<h4 class="name"><?php echo $name;?></h4>
+											<span class="location text-uppercase"><?php echo $location;?></span>
 										</div>
 									</div>
-								</div>
-								<div class="testimonial-item text-center">
-									<div class="center">
-										<div class="icon">
-											<i class="icon-quote-left"></i>
-											<i class="icon-quote-right"></i>
-										</div>
+								</div>	
 
-										<div class="quote">
-											<p>“First I would like to thank you for launching this amazing venture. I have successfully paid off my first student loan through Great Lakes and I would not be able to do It without you”</p>
-										</div>
-
-										<a href="https://www.youtube.com/watch?v=QANXeDqOo5U" class="popup-video" data-effect="mfp-move-from-top vertical-middle">
-											<img src="<?php echo get_theme_file_uri();?>/assets/images/client.jpg" class="img-fluid" alt="">
-										</a>
-
-										<div class="quote-bottom">
-											<h4 class="name">Jessica Rogers</h4>
-											<span class="location text-uppercase">Houston, Tx</span>
-										</div>
-									</div>
-								</div>
 							</div>
 
 							<div class="slider-progress-bar">
 								<span class="progress" style="width: 10%;"></span>
+							
 							</div>
-						</div>
+		<?php 
+							
+						endwhile;
+					endif;
+								?>
+						
 					</div>
 				</div>
+			</div>
+		</div>
+
 			</section><!-- /testimonials -->
+
+			
 
 			<section class="featured">
 				<div class="container">

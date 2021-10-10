@@ -12,7 +12,11 @@ $frepeaters = $group['features_list'];
 
 $singup = get_field('sing_up');
 $testimonial = get_field('testimonial');
-var_dump($testimonial);
+
+// $test = get_field('competition');
+// // $group = get_field('competition');
+// // $crepeaters = $group['main_Competition'];
+// var_dump($test);
 ?>
 		<section class="banner">
 			<div class="container position-relative">
@@ -149,40 +153,65 @@ var_dump($testimonial);
 				</div>
 			</section><!-- /pricing -->
 
+
+			
+
 			<section class="spendebt-difference">
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
 							<div class="entry-title text-center">
-								<h2 class="title">The Spendebt Difference</h2>
-								<h4 class="font-weight-normal">What makes us different?</h4>
-								<p>With Spendebt you can stop rounding up and start paying down.</p>
+								<h2 class="title"><?php the_field('competition_title');?></h2>
+								<h4 class="font-weight-normal"><?php the_field('competition_sub_title');?></h4>
+								<p><?php the_field('competition_content');?></p>
 							</div>
 						</div>
 					</div>
+					
 
+								
+						
 					<div class="row eq-height position-relative">
+
+
+					<?php
+
+														
+							if( have_rows('competition') ):
+
+								
+								while( have_rows('competition') ) : the_row();
+
+									$title = get_sub_field('title');
+									$sub_title = get_sub_field('sub_title');
+									$content = get_sub_field('content');
+									$note = get_sub_field('note');
+									
+								?>
+
 						<div class="col-lg-6 col-md-12">
 							<div class="difference-item text-center">
-								<h2 class="title">Competition</h2>
-								<span class="sub-title">Rounding up. Getting Nowhere.</span>
-								<p>The "Other Guys" only allow you to round up your purchases to the next dollar.</p>
+								<h2 class="title"><?php echo $title;?></h2>
+								<span class="sub-title"><?php echo $sub_title;?></span>
+								<p><?php echo $content;?></p>
 
-								<span class="note">This process is slow!</span>
-
+								<span class="note"><?php echo $note;?></span>
+								
+								
 								<ul class="list-unstyled">
 									<li>
-										<h4 class="label">Coffee</h4>
+										<h4 class="label"><?php echo $test ['competition_title'];?></h4>
 										<h4 class="value">$<span class="counter">4.37</span> + <span class="after-value">$<span class="counter">0.63</span></span></h4>
 									</li>
-									<li>
+								
+									<!-- <li>
 										<h4 class="label">Grocery</h4>
 										<h4 class="value">$<span class="counter">87.62</span> + <span class="after-value">$<span class="counter">0.28</span></span></h4>
 									</li>
 									<li>
 										<h4 class="label">Gas</h4>
 										<h4 class="value">$<span class="counter">32.00</span> + <span class="after-value">$<span class="counter">0.00</span></span></h4>
-									</li>
+									</li> -->
 								</ul>
 
 								<div class="total d-flex align-items-center justify-content-center">
@@ -192,7 +221,14 @@ var_dump($testimonial);
 							</div>
 						</div>
 
-						<div class="col-lg-6 col-md-12">
+						<?php
+						
+							endwhile;
+
+						endif;
+						?>
+
+						<!-- <div class="col-lg-6 col-md-12">
 							<div class="difference-item color text-center">
 								<h2 class="title"><img src="<?php echo get_theme_file_uri();?>/assets/images/logo-diff.png" class="img-fluid" alt=""></h2>
 								<span class="sub-title">Specified Payment. Paying Down.</span>
@@ -220,9 +256,13 @@ var_dump($testimonial);
 									<h2 class="value">$<span class="counter">4.50</span></h2>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
+
 				</div>
+
+
+
 			</section><!-- /spendebt-difference -->
 
 			<section class="sign-up">
@@ -252,22 +292,24 @@ var_dump($testimonial);
 							</div>
 						</div>
 					</div>
-					<?php				
-					if( have_rows('testimonial') ):
-
-while( have_rows('testimonial') ) : the_row();
-
-	$testimonial_title = get_sub_field('testimonial_title');
-	$quate_text = get_sub_field('quate_text');
-	$video_link = get_sub_field('video_link');
-	$video_image = get_sub_field('video_image');
-	$name = get_sub_field('name');
-	$location = get_sub_field('location');					
-?>
 
 					<div class="row">
 						<div class="col-12">
 							<div class="testimonial-slider">
+
+								<?php				
+									if( have_rows('testimonial') ):
+
+								      while( have_rows('testimonial') ) : the_row();
+
+									$testimonial_title = get_sub_field('testimonial_title');
+									$quate_text = get_sub_field('quate_text');
+									$video_link = get_sub_field('video_link');
+									$video_image = get_sub_field('video_image');
+									$name = get_sub_field('name');
+									$location = get_sub_field('location');					
+								?>
+
 								<div class="testimonial-item text-center">
 									<div class="center">
 										<div class="icon">
@@ -290,20 +332,23 @@ while( have_rows('testimonial') ) : the_row();
 									</div>
 								</div>	
 
+								<?php 
+							
+									endwhile;
+
+										endif;
+								?>
+
 							</div>
 
 							<div class="slider-progress-bar">
 								<span class="progress" style="width: 10%;"></span>
 							
-							</div>
-		<?php 
-							
-						endwhile;
-					endif;
-								?>
+							</div>	
 						
 					</div>
 				</div>
+
 			</div>
 		</div>
 
@@ -321,13 +366,24 @@ while( have_rows('testimonial') ) : the_row();
 								</div>
 
 								<ul class="client-logos list-unstyled">
-									<li><a><img src="<?php echo get_theme_file_uri();?>/assets/images/client-logo-1.png" class="img-fluid" alt=""></a></li>
-									<li><a><img src="<?php echo get_theme_file_uri();?>/assets/images/client-logo-2.png" class="img-fluid" alt=""></a></li>
-									<li><a><img src="<?php echo get_theme_file_uri();?>/assets/images/client-logo-3.png" class="img-fluid" alt=""></a></li>
-									<li><a><img src="<?php echo get_theme_file_uri();?>/assets/images/client-logo-4.png" class="img-fluid" alt=""></a></li>
-									<li><a><img src="<?php echo get_theme_file_uri();?>/assets/images/client-logo-5.png" class="img-fluid" alt=""></a></li>
-									<li><a><img src="<?php echo get_theme_file_uri();?>/assets/images/client-logo-6.png" class="img-fluid" alt=""></a></li>
+									
+								<?php				
+									if( have_rows('featured') ):
+
+									while( have_rows('featured') ) : the_row();
+
+									$image = get_sub_field('featured_image');
+														
+								?>
+
+									<li><a><img src="<?php echo $image; ?>" class="img-fluid" alt=""></a></li>
+
+								<?php
+								endwhile;
+							endif;
+							?>
 								</ul>
+
 							</div>
 						</div>
 					</div>
@@ -339,48 +395,61 @@ while( have_rows('testimonial') ) : the_row();
 					<div class="row">
 						<div class="col-12">
 							<div class="entry-title text-center">
-								<h2 class="title">Company News & Updates</h2>
-								<h4 class="font-weight-normal">The Latest Happenings Inside the Spendebt Family</h4>
+								<h2 class="title"><?php the_field('title');?></h2>
+								<h4 class="font-weight-normal"><?php the_field('sub_title');?></h4>
 							</div>
 						</div>
 					</div>
 
 					<div class="row lr-9">
+
+
+					<?php
+
+					// The Query
+					$args = array(
+						'post_type' => 'post',
+						'posts_per_page'=> 5,
+						'order_by' => 'DESC',
+
+					);
+
+					$the_query = new WP_Query($args);
+
+					// The Loop
+					if ($the_query->have_posts()) {
+
+						while ($the_query->have_posts()) {
+
+							$the_query->the_post();
+
+					?>
 						<div class="col-lg-4 col-sm-6">
+
 							<article class="blog-post">
 								<div class="media">
-									<a href="blog-details.html"><img src="<?php echo get_theme_file_uri();?>/assets/images/blog-post-1.jpg" class="img-fluid" alt=""></a>
+									<a href="blog-details.html"><img src="<?php echo get_the_post_thumbnail_url(); ?>" alt=""></a>
 								</div>
 
 								<div class="text">
-									<a href="blog-details.html"><h5 class="title">St. Louis tech startup showing consumers how to pay off debts when spending money</h5></a>
+									<a href="blog-details.html"><h5 class="title"><?php echo  get_the_title(); ?></h5></a>
 								</div>
 							</article>
-						</div><!-- /blog-post -->
 
-						<div class="col-lg-4 col-sm-6">
-							<article class="blog-post">
-								<div class="media">
-									<a href="blog-details.html"><img src="<?php echo get_theme_file_uri();?>/assets/images/blog-post-4.jpg" class="img-fluid" alt=""></a>
-								</div>
 
-								<div class="text">
-									<a href="blog-details.html"><h5 class="title">The Bourbon Friday Show with Kiley Summers from Spendebt</h5></a>
-								</div>
-							</article>
 						</div><!-- /blog-post -->
-						
-						<div class="col-lg-4 col-sm-6">
-							<article class="blog-post">
-								<div class="media">
-									<a href="blog-details.html"><img src="<?php echo get_theme_file_uri();?>/assets/images/blog-post-5.jpg" class="img-fluid" alt=""></a>
-								</div>
+								<?php
 
-								<div class="text">
-									<a href="blog-details.html"><h5 class="title">Startup masters 054: Spendebt App with Kiley Summers</h5></a>
-								</div>
-							</article>
-						</div><!-- /blog-post -->
+								}
+								} 
+
+								else {
+								echo "no posts found";
+								}
+
+								wp_reset_postdata();
+								?>
+
 					</div>
 				</div>
 			</section><!-- /latest-news -->

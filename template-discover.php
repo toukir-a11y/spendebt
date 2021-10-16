@@ -1,13 +1,15 @@
 <?php
 
  /* Template Name: discover*/
+
  get_header();
 
  $banner = get_field('page_banner');
  $video = get_field('video_overview');
- var_dump($video);
+
 ?>
 
+<div class="header_gutter"></div>
  <section class="page-banner d-flex align-items-center" style="background-image: url(<?php echo $banner['banner_image'];?>)">
  <div class="container">
 	 <div class="row">
@@ -153,50 +155,40 @@
 		 <div class="row">
 			 <div class="col-12">
 				 <div class="entry-title text-center">
-					 <h2 class="title">Highlights</h2>
+					 <h2 class="title"><?php the_field('Highlights_title');?></h2>
 				 </div>
 			 </div>
 		 </div>
 
 		 <div class="row">
+
+		 <?php
+
+			if( have_rows('highlights') ):
+
+				while( have_rows('highlights') ) : the_row();
+
+					$img = get_sub_field('Registration_Image');
+					$title = get_sub_field('registration_title');
+					$content = get_sub_field('registration_content');
+				 ?>
 			 <div class="col-md-4 col-sm-6">
 				 <div class="icon-box text-center">
 					 <div class="icon">
-						 <img src="assets/images/svg/registration.svg" class="svg" alt="">
+						 <img src="<?php echo $img;?>" class="svg" alt="">
 					 </div>
-
 					 <div class="text">
-						 <h4 class="title">Easy Registration</h4>
-						 <p>Create an user profile, select the bank account to pay from, enter the debt account to pay to, define your micropayment and cap amount.</p>
+						 <h4 class="title"><?php echo $title;?></h4>
+						 <p><?php echo $content;?></p>
 					 </div>
 				 </div>
 			 </div><!-- /icon-box -->
 
-			 <div class="col-md-4 col-sm-6">
-				 <div class="icon-box text-center">
-					 <div class="icon">
-						 <img src="assets/images/svg/secure.svg" class="svg" alt="">
-					 </div>
 
-					 <div class="text">
-						 <h4 class="title">Secure Servers</h4>
-						 <p>We use the same security as world renowned banks. 24/7 scans and 256-bit encryption level and more.</p>
-					 </div>
-				 </div>
-			 </div><!-- /icon-box -->
-			 
-			 <div class="col-md-4 col-sm-6">
-				 <div class="icon-box text-center">
-					 <div class="icon">
-						 <img src="assets/images/svg/clock.svg" class="svg" alt="">
-					 </div>
-
-					 <div class="text">
-						 <h4 class="title">24x7x365 Access</h4>
-						 <p>Access your plan anytime, anywhere. Log in & check your balance from your laptop, tablet or phone using the SPENDEBT app!</p>
-					 </div>
-				 </div>
-			 </div><!-- /icon-box -->
+			  <?php
+					endwhile;
+				endif;
+				?>
 		 </div>
 	 </div>
  </section><!-- /highlights -->
@@ -211,39 +203,30 @@
 					 </div>
 
 					 <ul class="faqs list-unstyled">
+					 <?php
+
+if( have_rows('frequently_asked') ):
+
+	while( have_rows('frequently_asked') ) : the_row();
+
+		$question = get_sub_field('question');
+		$answer = get_sub_field('answer');
+
+	 ?>
 						 <li>
-							 <h5 class="question">Is there a monthly fee?</h5>
+							 <h5 class="question"><?php echo $question;?></h5>
 							 <div class="answer">
-								 <p>Yes. We charge $1.99 for up to 25 transactions per month or $2.99 for unlimited transactions per month</p>
+								 <p><?php echo $answer;?></p>
 							 </div>
 						 </li>
-						 <li>
-							 <h5 class="question">Can I adjust the micropayment?</h5>
-							 <div class="answer">
-								 <p>Yes. You can change the micropayment amount as often as you like.</p>
-							 </div>
-						 </li>
-						 <li>
-							 <h5 class="question">Can I adjust the monthly cap amount?</h5>
-							 <div class="answer">
-								 <p>Yes. You can change the cap amount as often as you like</p>
-							 </div>
-						 </li>
-						 <li>
-							 <h5 class="question">Can I still use SpenDebt if my bank account is not listed?</h5>
-							 <div class="answer">
-								 <p>No. If you don’t see your bank account available, please tell us (by sending an email to info@spendebt.com) so we can be inclusive of your financial institution.</p>
-							 </div>
-						 </li>
-						 <li>
-							 <h5 class="question">Can I link multiple bank accounts?</h5>
-							 <div class="answer">
-								 <p>No. At this time SpenDebt does not offer the feature but will have this available in the future.</p>
-							 </div>
-						 </li>
+
+						 <?php
+						 	endwhile;
+						endif;
+						 ?>
 					 </ul>
 
-					 <a href="#" class="btn btn-base">Show All Frequently Asked Questions</a>
+					 <a href="<?php the_field('question_link');?>" class="btn btn-base"><?php the_field('question_text');?></a>
 				 </div>
 			 </div>
 		 </div>

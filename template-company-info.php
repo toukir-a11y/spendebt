@@ -6,7 +6,6 @@
  $page_banner = get_field('page_banner');
  $info = get_field ('company_info');
  $founder = get_field('meet_founder');
- var_dump($founder);
 
 ?>
  

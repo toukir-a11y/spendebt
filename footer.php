@@ -42,14 +42,13 @@ $social= get_field('social_media','option');
 
 						<?php 
 
-						foreach($social as $nsocial){
+						foreach($social as $nsocial):
 							$name= $nsocial['select_social_media'];
 						
 						?>
-
 							<li><a href="<?php echo $nsocial[$name];?>" class="icon-<?php echo $name;?>" target="_blank"></a></li>
 						<?php 
-						}
+						endforeach;
 						?>
 						</ul>
 

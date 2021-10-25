@@ -47,5 +47,51 @@ if( function_exists('acf_add_options_page') ) {
 		
 }
 
+// for plan text echo
+
+function shortcodify($text) {
+
+	$text =  "<h1>Hello World</h1>";
+
+	return $text;
+  }
+   
+  add_filter('text', 'shortcodify');
+
+
+// for search form
+
+  function search_spendebt($form){
+	$homedir = home_url("/");
+		$new_from = <<<FORM
+	<form action="{$homedir}" method="GET" role= "search" class="search-form">
+	<div class="form-group">
+	<input type="search" placeholder="Search the post" name= "s">
+	<button type="submit"><i class="icon-search"></i></button>
+	</div>
+	</form>
+	FORM;
+	return $new_from;
+	}
+	add_filter('get_search_form', 'search_spendebt');
+
+// register sidebar
+
+  function icon_widgets() {
+	register_sidebar( array(
+        'name'		    => __('icon-sidebar'),
+        'id'            => 'icon-sidebar',
+        'description'   => __('icon sidebar','spendebt'),
+		'class'         => '',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => "</section>",
+		'before_title'  => '<h2 class="widgettitle">',
+		'after_title'   => "</h2>",
+		));
+    
+}
+
+add_action( 'widgets_init', 'icon_widgets' );
 
 ?>
+

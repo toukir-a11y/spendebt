@@ -6,7 +6,9 @@
 
  $banner = get_field('page_banner');
  $video = get_field('video_overview');
-
+ $price_plan = get_field('price_plan');
+ $group = get_field('price_plan');
+ $repeaters = $group['price_list']; 
 ?>
 
 <div class="header_gutter"></div>
@@ -38,12 +40,26 @@
 		 <div class="row">
 			 <div class="col-12">
 				 <div class="entry-title separator">
-					 <h2 class="title">How it Works</h2>
-					 <h4 class="font-weight-normal">Spendebt helps you get rid of your debt faster</h4>
+					 <h2 class="title"><?php the_field('title');?></h2>
+					 <h4 class="font-weight-normal"><?php the_field('sub_title');?></h4>
 				 </div>	
 			 </div>
 		 </div>
 	 </div>
+	 <?php
+
+
+if( have_rows('how_works') ):
+
+    while( have_rows('how_works') ) : the_row();
+     
+        $icon = get_sub_field('chose_icon');
+		$heading = get_sub_field('heading');
+		$content = get_sub_field('content');
+		$link = get_sub_field('link');
+		$text = get_sub_field('text');
+		$image = get_sub_field('image');		
+?>
 
 	 <div class="work-steps">
 		 <div class="container">
@@ -51,80 +67,31 @@
 				 <div class="col-sm-8">
 					 <div class="content" data-number="001">
 						 <div class="icon float-left">
-							 <i class="icon-edit"></i>
+							 <i class="icon-<?php echo $icon;?>"></i>
 							 <span class="number">1</span>
 						 </div>
 
 						 <div class="text">
-							 <h2 class="title">Register</h2>
-							 <p>Subscribe and create a user profile</p>
-							 <a href="#" class="btn">Sign Up</a>
+							 <h2 class="title"><?php echo $heading;?></h2>
+							 <p><?php echo $content;?></p>
+							 <a href="<?php echo $link;?>" class="btn"><?php echo $text;?></a>
 						 </div>
 					 </div>
 				 </div>
 
 				 <div class="col-sm-4">
 					 <div class="media">
-						 <img src="assets/images/mobile.png" class="img-fluid" alt="">
+						 <img src="<?php echo $image;?>" class="img-fluid" alt="">
 					 </div>
 				 </div>
 			 </div>
 		 </div>
 	 </div><!-- /work-steps -->
 
-	 <div class="work-steps">
-		 <div class="container">
-			 <div class="row align-items-center">
-				 <div class="col-sm-8">
-					 <div class="content" data-number="002">
-						 <div class="icon float-left">
-							 <i class="icon-bank"></i>
-							 <span class="number">2</span>
-						 </div>
-
-						 <div class="text">
-							 <h2 class="title">Link Accounts</h2>
-							 <p>Link your bank accounts and define which debts to pay off</p>
-							 <a href="#" class="btn">Sign Up</a>
-						 </div>
-					 </div>
-				 </div>
-
-				 <div class="col-sm-4">
-					 <div class="media">
-						 <img src="assets/images/mobile.png" class="img-fluid" alt="">
-					 </div>
-				 </div>
-			 </div>
-		 </div>
-	 </div><!-- /work-steps -->
-
-	 <div class="work-steps">
-		 <div class="container">
-			 <div class="row align-items-center">
-				 <div class="col-sm-8">
-					 <div class="content" data-number="003">
-						 <div class="icon float-left">
-							 <i class="icon-money"></i>
-							 <span class="number">3</span>
-						 </div>
-
-						 <div class="text">
-							 <h2 class="title">Define Payments</h2>
-							 <p>Specify micro transaction size (anything above $.50)</p>
-							 <a href="#" class="btn">Sign Up</a>
-						 </div>
-					 </div>
-				 </div>
-
-				 <div class="col-sm-4">
-					 <div class="media">
-						 <img src="assets/images/mobile.png" class="img-fluid" alt="">
-					 </div>
-				 </div>
-			 </div>
-		 </div>
-	 </div><!-- /work-steps -->
+		<?php 
+		endwhile;
+	endif;
+	?>
  </section><!-- /how-works -->
 
  <section class="video-overview" style="--background-image: url(assets/images/video-overview.jpg)">
@@ -133,8 +100,7 @@
 			 <div class="col-lg-5 col-md-5 col-sm-12">
 				 <div class="entry-title">
 					 <h2 class="title white"><?php echo $video['video_title'];?></h2>
-					 <p><?php echo $video['video_content'];?>
-</p>
+					 <p><?php echo $video['video_content'];?></p>
 				 </div>
 			 </div>
 
@@ -184,7 +150,6 @@
 				 </div>
 			 </div><!-- /icon-box -->
 
-
 			  <?php
 					endwhile;
 				endif;
@@ -199,20 +164,21 @@
 			 <div class="col-12">
 				 <div class="content">
 					 <div class="entry-title">
-						 <h2 class="title">Frequently Asked Questions</h2>
+						 <h2 class="title"><?php echo get_field('asked_title');?></h2>
 					 </div>
 
 					 <ul class="faqs list-unstyled">
+
 					 <?php
 
-if( have_rows('frequently_asked') ):
+							if( have_rows('frequently_asked') ):
 
-	while( have_rows('frequently_asked') ) : the_row();
+								while( have_rows('frequently_asked') ) : the_row();
 
-		$question = get_sub_field('question');
-		$answer = get_sub_field('answer');
+									$question = get_sub_field('question');
+									$answer = get_sub_field('answer');
 
-	 ?>
+								?>
 						 <li>
 							 <h5 class="question"><?php echo $question;?></h5>
 							 <div class="answer">
@@ -239,20 +205,15 @@ if( have_rows('frequently_asked') ):
 			 <div class="col-12">
 				 <div class="content">
 					 <div class="entry-title text-center">
-						 <h2 class="title">Join Our Unlimited Plan</h2>
-						 <h4 class="font-weight-normal">Get 1 month <b>Free</b>, then:</h4>
+						<?php echo $price_plan['price_heading'];?>
 					 </div>
 
-					 <span class="price">$4.99</span>
+					 <?php echo $price_plan['for_price'];?>
 
 					 <ul class="features list-unstyled">
-						 <li>Unlimited Transactions</li>
-						 <li>Access Account on Any Device</li>
-						 <li>Free 30-Day Trial</li>
-						 <li>Paid Automatically from Linked Bank Account</li>
-						 <li>No Hidden Fees</li>
-						 <li>Guaranteed Secure and Private Bank Information</li>
-						 <li>Cancel Anytime</li>
+					 <?php foreach ($repeaters as $nrepeater):?>
+						 <li><?php echo $nrepeater['list'];?></li>
+						 <?php endforeach; ?>
 					 </ul>
 				 </div>
 			 </div>

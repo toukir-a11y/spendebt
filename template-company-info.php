@@ -116,48 +116,51 @@
 					 <div class="row">
 						 <div class="col-12">
 							 <div class="entry-title text-center">
-								 <h2 class="title">Company News & Updates</h2>
-								 <h4 class="font-weight-normal">The Latest Happenings Inside the Spendebt Family</h4>
+								 <h2 class="title"><?php the_field('title');?></h2>
+								 <h4 class="font-weight-normal"><?php the_field('sub_title');?></h4>
 							 </div>
 						 </div>
 					 </div>
  
 					 <div class="row lr-9">
+					 <?php
+					// The Query
+					$args = array(
+						'post_type' => 'post',
+						'posts_per_page'=> 3,
+						'order_by' => 'DESC',
+					);
+
+					$the_query = new WP_Query($args);
+
+					// The Loop
+					if ($the_query->have_posts()) {
+
+						while ($the_query->have_posts()) {
+
+							$the_query->the_post();
+
+					?>
 						 <div class="col-lg-4 col-sm-6">
 							 <article class="blog-post">
 								 <div class="media">
-									 <a href="blog-details.html"><img src="../images/blog-post-1.jpg" class="img-fluid" alt=""></a>
+									 <a href="blog-details.html"><img src="<?php echo get_the_post_thumbnail_url();?>" alt=""></a>
 								 </div>
  
 								 <div class="text">
-									 <a href="blog-details.html"><h5 class="title">St. Louis tech startup showing consumers how to pay off debts when spending money</h5></a>
+									 <a href="blog-details.html"><h5 class="title"><?php echo the_title();?></h5></a>
 								 </div>
 							 </article>
 						 </div><!-- /blog-post -->
- 
-						 <div class="col-lg-4 col-sm-6">
-							 <article class="blog-post">
-								 <div class="media">
-									 <a href="blog-details.html"><img src="../images/blog-post-4.jpg" class="img-fluid" alt=""></a>
-								 </div>
- 
-								 <div class="text">
-									 <a href="blog-details.html"><h5 class="title">The Bourbon Friday Show with Kiley Summers from Spendebt</h5></a>
-								 </div>
-							 </article>
-						 </div><!-- /blog-post -->
-						 
-						 <div class="col-lg-4 col-sm-6">
-							 <article class="blog-post">
-								 <div class="media">
-									 <a href="blog-details.html"><img src="../images/blog-post-5.jpg" class="img-fluid" alt=""></a>
-								 </div>
- 
-								 <div class="text">
-									 <a href="blog-details.html"><h5 class="title">Startup masters 054: Spendebt App with Kiley Summers</h5></a>
-								 </div>
-							 </article>
-						 </div><!-- /blog-post -->
+
+						 <?php
+							}
+							} else {
+							echo "no posts found";
+							}
+							/* Restore original Post Data */
+							wp_reset_postdata();
+							?>
 					 </div>
 				 </div>
 			 </section><!-- /latest-news -->

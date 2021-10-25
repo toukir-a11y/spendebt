@@ -149,12 +149,12 @@ $testimonial = get_field('testimonial');
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div>	
 				</div>
-			</section><!-- /pricing -->
+			</section> <!--price plan-->
 
 
-			
+		
 
 			<section class="spendebt-difference">
 				<div class="container">

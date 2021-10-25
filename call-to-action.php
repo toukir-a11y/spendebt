@@ -1,5 +1,5 @@
 <?php
-$call = get_field('call_to_action');
+$call = get_field('call_to_action', 'option');
 ?>
 
 <section class="call-action">
@@ -11,7 +11,7 @@ $call = get_field('call_to_action');
 									<h2 class="title white"><?php echo $call['title'];?></h2>
 								</div>
 
-								<a href="<?php echo $call['sing_up_link'];?>" class="btn btn-primary"><?php echo $call['sing_up_text'];?></a>
+								<a href="<?php echo $call['sign_up_link'];?>" class="btn btn-primary"><?php echo $call['sing_up_text_'];?></a>
 							</div>
 						</div>
 					</div>
